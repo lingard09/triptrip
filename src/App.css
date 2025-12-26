@@ -358,14 +358,27 @@ body {
     transform: translateX(-100%);
     width: 90%;
     max-width: 350px;
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.2);
   }
 
   .sidebar.open {
     transform: translateX(0);
   }
 
+  /* 사이드바 오버레이 배경 */
+  .sidebar.open::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+
   .sidebar-toggle {
     display: block;
+    top: 80px; /* 검색창 아래로 이동 */
   }
 
   .map-container {
@@ -374,10 +387,20 @@ body {
 
   .modal-content {
     max-width: 95%;
+    margin: 20px;
   }
 }
 
 @media (max-width: 480px) {
+  .sidebar {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .sidebar-header {
+    padding: 15px;
+  }
+
   .sidebar-header h1 {
     font-size: 20px;
   }
@@ -386,13 +409,42 @@ body {
     font-size: 14px;
   }
 
+  .place-item {
+    padding: 12px 15px;
+  }
+
+  .modal-content {
+    max-width: 100%;
+    margin: 10px;
+    border-radius: 12px 12px 0 0;
+  }
+
   .modal-header h2 {
     font-size: 18px;
+  }
+
+  .modal-body {
+    padding: 15px;
   }
 
   .button {
     padding: 8px 12px;
     font-size: 13px;
+  }
+
+  .place-search {
+    top: 10px;
+    left: 8px;
+    right: 8px;
+  }
+
+  .search-input-wrapper {
+    padding: 8px 10px;
+  }
+
+  .sidebar-toggle {
+    top: 70px;
+    left: 10px;
   }
 }
 
@@ -575,6 +627,7 @@ body {
   .place-search {
     left: 10px;
     right: 10px;
+    top: 15px;
   }
 
   .search-input-wrapper {
@@ -582,11 +635,27 @@ body {
   }
 
   .search-input-wrapper input {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .search-button {
-    padding: 6px 12px;
+    padding: 8px 14px;
     font-size: 13px;
+    min-width: 60px;
+  }
+
+  .clear-button,
+  .icon-button {
+    padding: 8px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .search-results {
+    max-height: calc(100vh - 180px);
+  }
+
+  .search-results-list {
+    max-height: calc(100vh - 230px);
   }
 }
