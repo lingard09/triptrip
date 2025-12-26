@@ -3,6 +3,7 @@ import "./App.css";
 import { NaverMap } from "./components/NaverMap";
 import { Sidebar } from "./components/Sidebar";
 import { PlaceModal } from "./components/PlaceModal";
+import { PlaceSearch } from "./components/PlaceSearch";
 import type { Place } from "./types";
 import { storage } from "./utils/storage";
 
@@ -82,6 +83,18 @@ function App() {
     await loadPlaces();
   };
 
+  const handleSearchPlaceSelect = (
+    lat: number,
+    lng: number,
+    name: string,
+    address: string
+  ) => {
+    setMapCenter([lat, lng]);
+    setMapZoom(16);
+    setSelectedPlace({ lat, lng, name, memo: address });
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="app">
       <Sidebar
@@ -94,6 +107,7 @@ function App() {
       />
 
       <div className="map-container">
+        <PlaceSearch onSelectPlace={handleSearchPlaceSelect} />
         <NaverMap
           places={places}
           onMapClick={handleMapClick}

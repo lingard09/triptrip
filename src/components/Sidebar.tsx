@@ -30,7 +30,8 @@ export function Sidebar({
   const filteredPlaces = places.filter((place) => {
     const matchesSearch =
       place.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      place.memo.toLowerCase().includes(searchQuery.toLowerCase());
+      (place.memo &&
+        place.memo.toLowerCase().includes(searchQuery.toLowerCase()));
     const matchesCategory =
       selectedCategory === "all" || place.category === selectedCategory;
     return matchesSearch && matchesCategory;
