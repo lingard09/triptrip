@@ -18,7 +18,7 @@
 ```html
 <script
   type="text/javascript"
-  src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID"
+  src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=YOUR_CLIENT_ID"
 ></script>
 ```
 
@@ -27,9 +27,11 @@
 ```html
 <script
   type="text/javascript"
-  src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=abc123def456"
+  src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=abc123def456"
 ></script>
 ```
+
+**중요**: 파라미터 이름은 `ncpClientId`가 아닌 `ncpKeyId`입니다.
 
 ## 실행
 
