@@ -84,7 +84,7 @@ export function NaverMap({
       const infoWindow = new window.naver.maps.InfoWindow({
         content: `
           <div style="padding: 10px; min-width: 150px;">
-            <strong style="font-size: 14px;">${place.name}</strong>
+            <strong style="font-size: 14px; color: #333">${place.name}</strong>
             ${
               place.memo
                 ? `<p style="margin: 5px 0 0 0; font-size: 12px; color: #666;">${place.memo}</p>`

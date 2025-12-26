@@ -230,6 +230,7 @@ body {
 .modal-header h2 {
   font-size: 20px;
   margin: 0;
+  color: #333;
 }
 
 .modal-body {
@@ -258,12 +259,15 @@ body {
   border-radius: 6px;
   font-size: 14px;
   font-family: inherit;
+  color: #333;
+  background-color: white;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
   outline: none;
   border-color: #1976d2;
+  background-color: white;
 }
 
 .form-group textarea {
@@ -432,6 +436,8 @@ body {
   outline: none;
   font-size: 14px;
   min-width: 0;
+  color: #333;
+  background-color: white;
 }
 
 .search-input-wrapper input::placeholder {

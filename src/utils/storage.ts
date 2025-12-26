@@ -1,40 +1,69 @@
-import localforage from "localforage";
+import { supabase } from "../lib/supabase";
 import type { Place } from "../types";
-
-const PLACES_KEY = "triptrip_places";
 
 export const storage = {
   async getPlaces(): Promise<Place[]> {
-    const places = await localforage.getItem<Place[]>(PLACES_KEY);
-    return places || [];
+    try {
+      const { data, error } = await supabase
+        .from("places")
+        .select("*")
+        .order("createdAt", { ascending: false });
+
+      if (error) {
+        console.error("Supabase error:", error);
+        return [];
+      }
+
+      return data || [];
+    } catch (error) {
+      console.error("Failed to fetch places:", error);
+      return [];
+    }
   },
 
   async savePlace(place: Place): Promise<void> {
-    const places = await this.getPlaces();
-    const existingIndex = places.findIndex((p) => p.id === place.id);
+    try {
+      // user_id 제거 (익명 사용자 지원)
+      const { error } = await supabase.from("places").upsert(place);
 
-    if (existingIndex >= 0) {
-      places[existingIndex] = place;
-    } else {
-      places.push(place);
+      if (error) {
+        console.error("Supabase error:", error);
+        throw error;
+      }
+    } catch (error) {
+      console.error("Failed to save place:", error);
+      throw error;
     }
-
-    await localforage.setItem(PLACES_KEY, places);
   },
 
   async deletePlace(id: string): Promise<void> {
-    const places = await this.getPlaces();
-    const filtered = places.filter((p) => p.id !== id);
-    await localforage.setItem(PLACES_KEY, filtered);
+    try {
+      const { error } = await supabase.from("places").delete().eq("id", id);
+
+      if (error) {
+        console.error("Supabase error:", error);
+        throw error;
+      }
+    } catch (error) {
+      console.error("Failed to delete place:", error);
+      throw error;
+    }
   },
 
   async updatePlace(id: string, updates: Partial<Place>): Promise<void> {
-    const places = await this.getPlaces();
-    const index = places.findIndex((p) => p.id === id);
+    try {
+      const { error } = await supabase
+        .from("places")
+        .update({ ...updates, updatedAt: Date.now() })
+        .eq("id", id);
 
-    if (index >= 0) {
-      places[index] = { ...places[index], ...updates, updatedAt: Date.now() };
-      await localforage.setItem(PLACES_KEY, places);
+      if (error) {
+        console.error("Supabase error:", error);
+        throw error;
+      }
+    } catch (error) {
+      console.error("Failed to update place:", error);
+      throw error;
     }
   },
 };
